@@ -1,59 +1,82 @@
-# PrevisaoApp
+# Previsao App - Angular + Nginx + Docker
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
+Este projeto contém uma aplicação **Angular** configurada para ser servida com **Nginx** dentro de um contêiner **Docker**. A aplicação faz previsões com base em parâmetros fornecidos pelo usuário e se comunica com um endpoint backend através de requisições HTTP.
 
-## Development server
+## Tecnologias Utilizadas
 
-To start a local development server, run:
+- **Angular**: Framework para construção da aplicação frontend.
+- **Nginx**: Servidor web para servir a aplicação Angular.
+- **Docker**: Plataforma para criar, rodar e empacotar a aplicação em contêineres.
+- **HttpClient (Angular)**: Para realizar requisições HTTP (POST) para o backend.
+
+## Funcionalidades
+
+- Formulário interativo onde o usuário pode inserir:
+  - **Ticker** (símbolo de ações ou outros ativos financeiros)
+  - **Período** (período de tempo da previsão)
+  - **Intervalo** (intervalo de tempo das previsões)
+  
+- Envia esses dados para um backend (via HTTP POST) e exibe a resposta na aplicação.
+
+## Pré-Requisitos
+
+Antes de rodar o projeto, você precisa ter as seguintes ferramentas instaladas:
+
+- **Docker**: Para criar e rodar contêineres.
+- **Node.js e NPM**: Para instalar dependências do Angular e rodar o projeto localmente.
+- **Angular CLI**: Para desenvolver e gerar builds do Angular.
+
+## Instalação e Configuração
+
+### Passo 1: Clone o repositório
+
+Clone o repositório para o seu ambiente local:
+
+```bash
+git clone https://github.com/seu-usuario/previsao-app.git
+cd previsao-app
+```
+### Passo 2: Instalar Dependências do Angular
+
+Dentro do diretório do projeto, instale as dependências com o NPM:
+
+```bash
+npm install
+```
+### Passo 3: Construir a Aplicação Angular
+
+Para gerar os arquivos de produção da aplicação Angular, execute o comando:
+
+```bash
+ng build --prod
+```
+
+### Passo 3.1: Star aplicação Angular
+
+Iniciar aplicação Angular:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Passo 4: Criar a Imagem Docker
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+O projeto vem com um Dockerfile configurado para construir a aplicação Angular e servir os arquivos com o Nginx. Para construir a imagem Docker, execute:
 
 ```bash
-ng generate component component-name
+sudo docker build -t angular-previsao-app .
 ```
+### Passo 5: Rodar a Aplicação no Docker
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Depois de construir a imagem, execute o seguinte comando para rodar o contêiner:
 
 ```bash
-ng generate --help
+sudo docker run -p 8081:80 angular-previsao-app
 ```
+### Passo 6: Acessar a Aplicação
 
-## Building
-
-To build the project run:
+Abra o navegador e acesse a aplicação em:
 
 ```bash
-ng build
+http://localhost:8081
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
